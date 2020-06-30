@@ -1,0 +1,73 @@
+<div *ngIf="router.url === '/'">
+<mat-toolbar>
+  <span>Pretraga dokumenata</span>
+</mat-toolbar>
+
+<mat-progress-bar *ngIf="isLoadingResults" mode="indeterminate"></mat-progress-bar>
+
+<div class="example-container mat-elevation-z8">
+  <div class="search">
+    <mat-form-field>
+      <mat-label>Pretraga zakona po naslovu</mat-label>
+      <input matInput type="text" [(ngModel)]="titleInput" (keyup.enter)="applyFilterByTitle($event)"
+        placeholder="Unesite reč za pretragu...">
+      <button mat-button *ngIf="titleInput" matSuffix mat-icon-button aria-label="Clear" (click)="titleInput=''"
+        matTooltip="Obriši unos" matTooltipPosition="left">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-slide-toggle value="primary" [(ngModel)]="checkedTitle" matTooltip="Pretraga po svim rečima"
+        matTooltipPosition="right">Sve reči</mat-slide-toggle>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Pretraga zakona po tekstu</mat-label>
+      <input matInput type="text" [(ngModel)]="textInput" (keyup.enter)="applyFilterByText($event)"
+        placeholder="Unesite reč za pretragu...">
+      <button mat-button *ngIf="textInput" matSuffix mat-icon-button aria-label="Clear" (click)="textInput=''"
+        matTooltip="Obriši unos" matTooltipPosition="left">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-slide-toggle [(ngModel)]="checkedText" matTooltip="Pretraga po svim rečima" matTooltipPosition="right">
+        Sve reči</mat-slide-toggle>
+    </mat-form-field>
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="data" class="example-table">
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef>UUID zakona</th>
+          <td mat-cell *matCellDef="let row" [routerLink]="['/law', row.uuid]"  >{{row.uuid}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Naslov zakona</th>
+          <td mat-cell *matCellDef="let row">{{row.lawTitle}}
+            <button mat-icon-button matTooltip="Otvori zakon" matTooltipPosition="after" [routerLink]="['/law', row.uuid]" >
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef>Dokument</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-raised-button color="primary" (click)="download(row)" matTooltip="Preuzimanje dokumenta"
+              matTooltipPosition="after">Preuzmi dokument</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="2" [pageSizeOptions]="[ 10, 20, 50, 100, 500, 1000]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+</div>
+</div>
+
+ 
+  
+
+<router-outlet></router-outlet>

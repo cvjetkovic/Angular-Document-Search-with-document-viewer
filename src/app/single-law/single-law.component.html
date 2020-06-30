@@ -1,0 +1,10 @@
+<div> 
+
+    <input (input)="searchText = $event.target.value" placeholder="Pretraga..." />
+    <!-- <input placeholder="Enter term" (input)="updateSearch($event)" id="search-term"> -->
+    <!-- <div [innerHTML]="test | highlight: searchTerm"> -->
+    <ngx-doc-viewer searchText="searchText"  [url]="doc" class="center-law" viewer="mammoth" style="width:100%;height:93vh;" > 
+        <!-- <div [innerHTML]="test | highlight: searchTerm"></div> -->
+    </ngx-doc-viewer>
+<!-- </div> -->
+</div>
