@@ -21,7 +21,7 @@
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
-    "mammoth": "^1.4.9",
+    "mammoth": "^1.5.1",
     "mark.js": "^8.11.1",
     "ngx-doc-viewer": "^1.1.0",
     "ngx-text-highlight": "^0.1.6",
